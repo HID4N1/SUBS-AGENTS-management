@@ -1,23 +1,39 @@
-import logo from './logo.svg';
 import './App.css';
+import React from 'react';
+
+// import Client Components for Test
+import Footer from './client/components/Footer';
+import Header from './client/components/Header';
+import Newsletter from './client/components/Newsletter';
+import StepCard from './client/components/StepCard';
+import FeatureCard from './client/components/FeatureCard';
+
+
+
+// external libraries
+// import axios from 'axios';
+
 
 function App() {
-  return (
+return (  
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+
+      {/* ila bghito tchfo chi component 
+      7aydo lih l comment  ou runniw server */}
+
+      {/* use the variables in frontend/src/Styles/Variables.css
+      by importing it into the working file */}
+
+
+
+      <Header />
+      <main>
+        {/* <StepCard /> */}
+        
+        {/* <FeatureCard /> */}
+      </main>
+      {/* <Newsletter /> */}
+      {/* <Footer /> */}
     </div>
   );
 }

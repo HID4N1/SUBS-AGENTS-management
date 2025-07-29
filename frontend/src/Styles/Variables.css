@@ -1,0 +1,36 @@
+:root {
+
+    /* === BRAND COLORS === */
+    --color-primary: #F57C00;
+    --color-primary-hover: #e06f00;
+    --color-primary-light: #ffe4c2;
+  
+    /* === GRAYSCALE === */
+    --color-white: #ffffff;
+    --color-light: #f9f9f9;
+    --color-gray-light: #e0e0e0;
+    --color-gray: #bdbdbd;
+    --color-dark: #333333;
+    --color-black: #1e1e1e;
+  
+    /* === TEXT === */
+    --text-color: var(--color-dark);
+    --text-muted: #666666;
+    --heading-color: var(--color-black);
+  
+    /* === FEEDBACK COLORS === */
+    --color-success: #4CAF50;
+    --color-error: #F44336;
+    --color-warning: #FFC107;
+    --color-info: #2196F3;
+  
+    /* === BORDER / SHADOW === */
+    --border-radius: 12px;
+    --box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
+
+
+    /* FONT FAMILY */
+    --font-main: 'Montserrat', sans-serif;
+
+  }
+  
