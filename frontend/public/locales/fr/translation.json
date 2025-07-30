@@ -1,0 +1,37 @@
+{
+  "footer": {
+    "allRightsReserved": "Tous les droits réservés par Gen-Sales Maroc",
+    "privacyPolicy": "Politique de confidentialité",
+    "termsOfService": "Conditions d'utilisation"
+  },
+  "button": {
+    "startRequest": "Commencez ma demande"
+  },
+  "howItWorks": {
+    "title": "Comment cela fonctionne-t-il ?",
+    "subtitle": "Commencer est simple. Suivez ces trois étapes faciles pour gérer votre abonnement.",
+    "step1": "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit.",
+    "step2": "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit.",
+    "step3": "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit."
+  },
+  "newsletter": {
+    "title": "Abonnez-vous à notre newsletter",
+    "placeholderName": "Nom",
+    "placeholderEmail": "Adresse e-mail",
+    "subscribeButton": "Abonnez-vous maintenant",
+    "subscribedAlert": "Abonnement réussi !"
+  },
+  "landingPage": {
+    "heroTitle": "Gérez votre abonnement",
+    "heroHighlight": "FACILEMENT",
+    "heroDescription": "Voici une description simple de ce que nous faisons",
+    "featureTitle": "Rendez chaque étape centrée sur l'utilisateur",
+    "featureDescription": "Lorem ipsum dolor sit amet, consectetur adipis elit",
+    "featureCard1Title": "Processus sécurisé",
+    "featureCard1Description": "Nous garantissons un processus solide et sécurisé pour protéger vos données et maintenir la confidentialité à chaque étape",
+    "featureCard2Title": "Réponse rapide",
+    "featureCard2Description": "Notre équipe est toujours prête à répondre rapidement, minimisant les délais et assurant un soutien sans faille.",
+    "featureCard3Title": "Support 24/7",
+    "featureCard3Description": "Une assistance disponible à toute heure pour vous aider quand vous en avez besoin, quel que soit le fuseau horaire."
+  }
+}

@@ -22,8 +22,7 @@ urlpatterns = [
     #Custopm app urls
     path('api/users/', include('users.urls')),
     path('api/subscriptions/', include('subscriptions.urls')),
-    path('api/renewals/', include('renewals.urls')),
+    path('api/reservation/', include('reservation.urls')),
     path('api/missions/', include('missions.urls')),
     path('api/notifications/', include('notifications.urls')),
-    path('api/invoices/', include('invoices.urls')),
 ]

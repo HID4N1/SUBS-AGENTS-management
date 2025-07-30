@@ -1,0 +1,37 @@
+{
+  "footer": {
+    "allRightsReserved": "All rights reserved by Gen-Sales Morocco",
+    "privacyPolicy": "Privacy Policy",
+    "termsOfService": "Terms of Service"
+  },
+  "button": {
+    "startRequest": "Start My Request"
+  },
+  "howItWorks": {
+    "title": "How does it work?",
+    "subtitle": "Getting started is simple. Follow these three easy steps to manage your subscription.",
+    "step1": "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit.",
+    "step2": "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit.",
+    "step3": "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit."
+  },
+  "newsletter": {
+    "title": "Subscribe to our newsletter",
+    "placeholderName": "Name",
+    "placeholderEmail": "Email address",
+    "subscribeButton": "Subscribe Now",
+    "subscribedAlert": "Subscribed successfully!"
+  },
+  "landingPage": {
+    "heroTitle": "Manage Your Subscription",
+    "heroHighlight": "EASILY",
+    "heroDescription": "this is a simple description of what we do",
+    "featureTitle": "Make every step user-centric",
+    "featureDescription": "Lorem ipsum dolor sit amet, consectetur adipis elit",
+    "featureCard1Title": "Secure Process",
+    "featureCard1Description": "We ensure a robust and secure process to protect your data and maintain confidentiality at every step",
+    "featureCard2Title": "Quick Response",
+    "featureCard2Description": "Our team is always ready to respond quickly, minimizing delays and ensuring seamless support.",
+    "featureCard3Title": "24/7 Support",
+    "featureCard3Description": "Round-the-clock assistance is available to help you whenever you need it, no matter the time zone."
+  }
+}

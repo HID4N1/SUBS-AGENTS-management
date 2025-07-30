@@ -1,0 +1,79 @@
+/* Footer base styles */
+.footer-container {
+    background-color: var(--color-primary-light);
+    color: black;
+    padding: 2rem 1rem;
+    flex-shrink: 0;
+  }
+  
+  .footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  /* Copyright text */
+  .copyright {
+    margin: 0;
+    font-size: 0.9rem;
+    text-align: center;
+    color: black;
+  }
+  
+  /* Links container */
+  .footer-links {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  
+  /* Individual links */
+  .footer-link {
+    color: black;
+    text-decoration: none;
+    font-size: 0.85rem;
+    transition: color 0.2s ease;
+  }
+  
+  .footer-link:hover {
+    color: #3498db;
+    text-decoration: underline;
+  }
+  
+  /* Link separator */
+  .link-separator {
+    color: #7f8c8d;
+    font-size: 0.85rem;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .footer-content {
+      font-size: 12px;
+      flex-direction: row;
+      gap: 0.5rem;
+    }
+    
+    .footer-links {
+      flex-direction: row;
+      gap: 0.25rem;
+    }
+    
+    .link-separator {
+      display: none;
+    }
+  }
+  
+  /* Animation for hover effects */
+  @keyframes fadeIn {
+    from { opacity: 0.7; }
+    to { opacity: 1; }
+  }
+  
+  .footer-link:hover {
+    animation: fadeIn 0.3s ease-in-out;
+  }

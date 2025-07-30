@@ -1,16 +1,21 @@
+@import './Styles/Variables.css';
+
 body{
   margin: 0;
+  padding: 0;
   color-scheme: light dark;
-  display: flex ;
-  background-color: rgb(41, 41, 41);
+  background-color: white;
 }
 html, body {
   height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 .App {
-  display: flex;
-  flex-direction: column;
   height: 100%;
+  width: 100%;
   color: white;
+
 }

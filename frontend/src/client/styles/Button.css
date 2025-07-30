@@ -1,0 +1,60 @@
+.start-button {
+    padding: 16px 32px;
+    border: none;
+    border-radius: var(--border-radius);
+    font-size: 18px;
+    font-weight: 700;
+    font-family: var(--font-main);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 200px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: var(--box-shadow);
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    border: 2px solid var(--color-primary);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .start-button:hover:not(:disabled) {
+    background-color: var(--color-primary-hover);
+    border-color: var(--color-primary-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(245, 124, 0, 0.4);
+  }
+  
+  .start-button:active:not(:disabled) {
+    transform: translateY(0);
+    box-shadow: 0 4px 10px rgba(245, 124, 0, 0.3);
+  }
+  
+  .start-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+  }
+  
+  .start-button:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(245, 124, 0, 0.25);
+  }
+  
+  /* Responsive design */
+  @media (max-width: 768px) {
+    .start-button {
+      min-width: 100px;
+      padding: 14px 28px;
+      font-size: 14px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .start-button {
+      min-width: 100px;
+      padding: 12px 24px;
+      font-size: 10px;
+      letter-spacing: 0.5px;
+    }
+  }

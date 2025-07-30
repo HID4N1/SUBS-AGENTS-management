@@ -3,4 +3,4 @@ from django.apps import AppConfig
 
 class RenewalsConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'renewals'
+    name = 'reservation'

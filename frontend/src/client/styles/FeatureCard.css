@@ -1,0 +1,45 @@
+    /* Flex container for cards */
+  .feature-cards-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 100px;
+    flex-wrap: wrap; /* stacks vertically on smaller screens */
+  }
+  
+  /* Individual Card Styles (already here) */
+  .feature-card {
+    background: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    width: 250px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+  }
+  
+  .feature-card:hover {
+    transform: translateY(-5px);
+  }
+  
+  .feature-card .icon {
+    font-size: 40px;
+    color: #333;
+    margin-bottom: 15px;
+  }
+  
+  .feature-card h3 {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 10px 0;
+    color: #333; /* Make sure it's not blending into the background */
+    text-align: center;
+  }
+  
+  
+  .feature-card p {
+    font-size: 14px;
+    color: #555;
+    line-height: 1.5;
+  }
+  
