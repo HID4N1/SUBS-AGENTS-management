@@ -1,5 +1,4 @@
-import React from "react";
-import { useState } from 'react';
+import React, { useState } from "react";
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
@@ -11,6 +10,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import NavigationButtons from '../components/NavigationButtons';
 import ProgressIndicator from "../components/ProgressIndicator";
+import Alert from '../components/alert';
 
 // styles
 import '../styles/MultiStepForms.css';
@@ -27,26 +27,46 @@ const MultiStepForms = () => {
 
     const navigate = useNavigate();
 
+    const [alert, setAlert] = useState({
+      message: '',
+      type: 'info',
+      visible: false,
+    });
+
+    const showAlert = (message, type = 'info') => {
+      setAlert({
+        message,
+        type,
+        visible: true,
+      });
+    };
+
+    const handleCloseAlert = () => {
+      setAlert({
+        ...alert,
+        visible: false,
+      });
+    };
 
     const handleNext = async () => {
       // Validation for each step
       if (step === 1) {
         if (!formData.client_name || !formData.client_phone || !formData.client_email) {
-          alert('Please fill in all personal information fields.');
+          showAlert('Please fill in all personal information fields.', 'warning');
           return;
         }
       } else if (step === 2) {
         if (!formData.selected_day) {
-          alert('Please select a day.');
+          showAlert('Please select a day.', 'warning');
           return;
         }
         if (!formData.time_slots || formData.time_slots.length === 0) {
-          alert('Please select a time slot.');
+          showAlert('Please select a time slot.', 'warning');
           return;
         }
       } else if (step === 3) {
         if (!formData.location) {
-          alert('Please select a location.');
+          showAlert('Please select a location.', 'warning');
           return;
         }
       }
@@ -56,7 +76,7 @@ const MultiStepForms = () => {
           const reservationId = await saveData();
           navigate('/form/confirmation', { state: { reservationId } });
         } catch (error) {
-          alert('Failed to save reservation. Please try again.');
+          showAlert('Failed to save reservation. Please try again.', 'error');
         }
       } else {
         nextStep();
@@ -73,7 +93,7 @@ const MultiStepForms = () => {
         </header>
             <div className="multi-step-form">
                     {/* ghaykon hna l progress indicator */}
-                    <ProgressIndicator step={step} />
+                    <ProgressIndicator step={step} totalSteps={3} />
                     
                     {/* ghaykon hna l form */}
 
@@ -115,8 +135,14 @@ const MultiStepForms = () => {
                 </div>
                 </div>
              
-
             </div>
+            {alert.visible && (
+              <Alert
+                type={alert.type}
+                message={alert.message}
+                onClose={handleCloseAlert}
+              />
+            )}
         <footer>
             <Footer />
         </footer>

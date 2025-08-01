@@ -80,6 +80,10 @@ const Confirmation = () => {
         <h2>Reservation Date</h2>
         <p>{new Date(reservation.reservation_date).toLocaleString()}</p>
 
+
+        <button onClick={() => window.location.href = '/'} className="back-button">
+          Back to Home
+        </button>
         </div>
         
       <footer>
