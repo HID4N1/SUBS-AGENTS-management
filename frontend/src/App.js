@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 //Client Pages 
 import LandingPage from './client/pages/LandingPage';
 import MultiStepForm from './client/pages/MultiStepForms';
+import Confirmation from './client/pages/Confirmation';
 
 
 
@@ -20,7 +21,8 @@ return (
       <div className="App">
         <Routes>
           <Route path="/" element={<LandingPage />} />
-          <Route path="/form/personel-information" element={<MultiStepForm />} />
+          <Route path="/form/Forms" element={<MultiStepForm />} />
+          <Route path="/form/confirmation" element={<Confirmation />} />
         </Routes>
       </div>
     </Suspense>

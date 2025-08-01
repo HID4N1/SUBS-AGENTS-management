@@ -2,6 +2,7 @@ import React from 'react';
 import '../styles/NavigationButton.css';
 
 const NavigationButtons = ({ 
+  step,
   onNext, 
   onBack, 
   nextDisabled = false, 
@@ -19,6 +20,7 @@ const NavigationButtons = ({
     }
   };
 
+
   const handleBack = () => {
     console.log('Back button clicked');
     if (onBack) {
@@ -30,6 +32,7 @@ const NavigationButtons = ({
     <div className="navigation-buttons">
 
         {/* back Button */}
+      { step > 1 && (
       <button 
         className="nav-button back-button"
         onClick={handleBack}
@@ -37,15 +40,17 @@ const NavigationButtons = ({
       >
         {backText}
       </button>
+      )}
+
       
       {/* next Button */}
       <button 
         className="nav-button next-button"
         onClick={handleNext}
-        disabled={nextDisabled}
       >
         {nextText}
       </button>
+
     </div>
   );
 };

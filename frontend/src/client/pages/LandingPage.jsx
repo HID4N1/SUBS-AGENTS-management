@@ -35,7 +35,7 @@ const LandingPage = () => {
                        <Button 
                         onClick={() => console.log('Button clicked')}
                         className="hero-button"
-                        to="/form/personel-information" // Assuming you want to navigate to the first step of the form
+                        to="/form/Forms" // Assuming you want to navigate to the first step of the form
                         />
                     </div>
                     <div className="hero-image-container">
