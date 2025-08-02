@@ -21,8 +21,6 @@
 
 .container {
     max-width: 112rem;
-    margin-left: auto;
-    margin-right: auto;
     padding-left: 1rem;
     padding-right: 1rem;
 }
@@ -77,10 +75,11 @@
     margin-top: 0.7rem;
     font-size: 1rem;
     line-height: 1.625;
-    color: #4B5563; /* gray-600 */
+    color: #4B5563; 
 }
 
 .steps-wrapper {
+    align-items: center;
     position: relative;
     margin-top: 3rem;
     padding: 5px;
@@ -91,35 +90,6 @@
         margin-top: 5rem;
     }
 }
-
-.curved-line-wrapper {
-    position: absolute;
-    inset-inline-start: 0;
-    inset-inline-end: 0;
-    top: 0.5rem;
-    display: none;
-}
-
-@media (min-width: 768px) {
-    .curved-line-wrapper {
-        display: block;
-        padding-inline-start: 5.5rem;
-        padding-inline-end: 7rem;
-    }
-}
-
-@media (min-width: 1024px) {
-    .curved-line-wrapper {
-        padding-inline-start: 7rem;
-        padding-inline-end: 7rem;
-        top: 0.5rem;
-    }
-}
-
-.curved-line {
-    width: 100%;
-}
-
 .steps-grid {
     display: grid;
     grid-template-columns: 1fr;
@@ -134,14 +104,12 @@
     }
 }
 
-.step{
-    position: relative;
+.step-instruction{
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
     border-radius: var(--border-radius);
-    /* background-color: blue; */
 }
 
 
@@ -162,7 +130,7 @@
 .step-description {
     margin-top: 1rem;
     font-size: 1rem;
-    color: #4B5563; /* gray-600 */
+    color: #4B5563; 
 }
 
 

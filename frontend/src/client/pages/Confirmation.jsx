@@ -6,6 +6,7 @@ import '../styles/confirmation.css';
 
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import Button from "../components/Button";
 
 const Confirmation = () => {
   const location = useLocation();
@@ -81,9 +82,12 @@ const Confirmation = () => {
         <p>{new Date(reservation.reservation_date).toLocaleString()}</p>
 
 
-        <button onClick={() => window.location.href = '/'} className="back-button">
-          Back to Home
-        </button>
+        <Button 
+                        onClick={() => console.log('Button clicked')}
+                        text={"Go to Home"}
+                        className="go-home-button"
+                        to="/" 
+                        />
         </div>
         
       <footer>

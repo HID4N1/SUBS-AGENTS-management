@@ -66,12 +66,15 @@ const useMultiStepForms = () => {
       console.log('Data successfully saved to backend');
       // display the saved data
       console.log('Saved Data:', formData);
-      // display reservation info
-      alert('Reservation successfully saved!');
+      // Return the reservation ID for the component to handle the success message
       return response.data.reservation_id;
     } catch (error) {
       console.error('Error saving data to backend:', error);
-      throw error;
+      if (error.response && error.response.data && error.response.data.error) {
+        throw new Error(error.response.data.error);
+      } else {
+        throw new Error('Failed to save reservation. Please try again.');
+      }
     }
   };
 

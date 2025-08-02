@@ -1,19 +1,258 @@
-.MultiStepForms{
+/* Main container */
+.MultiStepForms {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    width: 100%;
+    overflow-x: hidden; /* prevents horizontal scroll */
+  }
+  
+  /* Main content area */
+  .multi-step-form {
+    flex: 1;
+    width: 100%;
+    max-width: 700px;
+    margin: 2rem auto; /* center horizontally */
+    padding: 1.5rem;
+    background: #ffffff;
+    border-radius: 1rem;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+  }
+  .multi-step-form:hover {
+    transform: translateY(-3px);
+  }
+  
+
+  .form-step {
+    display: flex;
+    flex-direction: column;
+    animation: fadeIn 0.4s ease;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Step Title */
+  .form-step-title {
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    text-align: center;
+    color: #111827;
+  }
+  
+  /* ===========================
+     FORM GROUPS & INPUTS
+     =========================== */
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1.5rem;
+  }
+  
+  .form-label {
+    font-size: 1rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    color: #374151;
+  }
+  
+  .required {
+    color: #e11d48; /* red-600 */
+  }
+  
+  .form-input,
+  .form-select {
+    width: 90%;
+    color: var(--text-color);
+    padding: 0.875rem 1rem;
+    border: 1px solid #d1d5db;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    background: #ffffff;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+  
+  .form-input:focus,
+  .form-select:focus {
+    border-color: #2563eb; /* blue-600 */
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.3);
+    outline: none;
+  }
+
+
+  /* Info text (for loading or hints) */
+  .info-text {
+    font-size: 0.95rem;
+    color: #6b7280;
+    margin-top: 0.25rem;
+  }
+  
+  /* ===========================
+     TIME SLOT RADIO OPTIONS
+     =========================== */
+  .time-slots {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+    margin-top: 1rem;
+  }
+  
+
+  .radio-option {
+    display: flex;
+    align-items: center;
     color: black;
-
-}
-.multi-step-form {
-    flex-grow: 1;
-}
-
-.form-container{
-    position: relative;
-    background-color: white;
-    border: 1px solid black;
-    margin: 1rem;
-    padding: 2rem;
-    border-radius: var(--border-radius);
-}
+    gap: 0.5rem;
+    font-size: 1rem;
+    cursor: pointer;
+    background: #f9fafb;
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+    border: 1px solid #e5e7eb;
+    transition: background 0.2s ease, border-color 0.2s ease;
+  }
+  
+  .radio-option:hover {
+    background: #f3f4f6;
+    border-color: #d1d5db;
+  }
+  
+  .radio-option input[type="radio"] {
+    accent-color: #2563eb; /* blue highlight */
+    width: 18px;
+    height: 18px;
+  }
+  
+  /* ===========================
+     NAVIGATION BUTTONS
+     =========================== */
+  .navigation-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2rem;
+    gap: 1rem;
+  }
+  
+  .btn {
+    flex: 1;
+    padding: 0.875rem 1rem;
+    font-size: 1rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+  }
+  
+  .btn-primary {
+    background: #2563eb;
+    color: #ffffff;
+  }
+  
+  .btn-primary:hover {
+    background: #1e40af;
+    transform: translateY(-2px);
+  }
+  
+  .btn-secondary {
+    background: #e5e7eb;
+    color: #111827;
+  }
+  
+  .btn-secondary:hover {
+    background: #d1d5db;
+    transform: translateY(-2px);
+  }
+  
+  .btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  
+  /* ===========================
+     ALERT (if not styled elsewhere)
+     =========================== */
+  .alert {
+    padding: 1rem;
+    border-radius: 0.5rem;
+    margin: 1rem 0;
+    font-size: 0.95rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .alert.info {
+    background: #dbeafe;
+    color: #1e3a8a;
+  }
+  
+  .alert.warning {
+    background: #fef3c7;
+    color: #78350f;
+  }
+  
+  .alert.error {
+    background: #fee2e2;
+    color: #991b1b;
+  }
+  
+  /* ===========================
+     PROGRESS INDICATOR
+     =========================== */
+  .progress-indicator {
+    width: 100%;
+    margin-bottom: 2rem;
+  }
+  
+  /* ===========================
+     RESPONSIVE
+     =========================== */
+  @media (max-width: 768px) {
+    .multi-step-form {
+      padding: 1.5rem;
+      margin: 1.5rem auto;
+    }
+  
+    .form-step-title {
+      font-size: 1.5rem;
+    }
+  
+    .navigation-buttons {
+      flex-direction: column-reverse;
+    }
+  
+    .btn {
+      width: 100%;
+    }
+  
+    .time-slots {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .multi-step-form {
+      width: 95%;
+      padding: 1rem;
+    }
+  
+    .form-input,
+    .form-select {
+      font-size: 0.95rem;
+    }
+  
+    .form-step-title {
+      font-size: 1.25rem;
+    }
+  }
+  

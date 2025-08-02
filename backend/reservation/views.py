@@ -5,6 +5,39 @@ from rest_framework import status
 from .models import Reservation, TimeSlot, Location
 from datetime import datetime
 from django.http import JsonResponse
+from django.db.models import Q
+from django.utils import timezone
+import calendar
+
+def check_reservation_limit(client_phone, client_email):
+    """
+    Check if a client has exceeded the reservation limit for the current month.
+    Returns True if the client can make another reservation, False otherwise.
+    """
+    # Get the first day of the current month
+    now = timezone.now()
+    start_of_month = now.replace(day=1, hour=0, minute=0, second=0, microsecond=0)
+    
+    # Get the last day of the current month
+    last_day = calendar.monthrange(now.year, now.month)[1]
+    end_of_month = now.replace(day=last_day, hour=23, minute=59, second=59, microsecond=999999)
+    
+    # Build query to find reservations for this client this month
+    query = Q()
+    if client_phone:
+        query |= Q(client_phone=client_phone)
+    if client_email:
+        query |= Q(client_email=client_email)
+    
+    # Count reservations this month for this client
+    reservations_this_month = Reservation.objects.filter(
+        query,
+        reservation_date__gte=start_of_month,
+        reservation_date__lte=end_of_month
+    ).count()
+    
+    # Return True if client can make another reservation (less than 2)
+    return reservations_this_month < 2
 
 @api_view(['POST'])
 def step1(request):
@@ -43,6 +76,12 @@ def final_step(request):
     client_email = request.data.get('client_email')
     time_slots = request.data.get('time_slots', [])
     location_id = request.data.get('location')
+
+    # Check if client has exceeded reservation limit for this month
+    if not check_reservation_limit(client_phone, client_email):
+        return JsonResponse({
+            'error': 'You have already made the maximum number of reservations (2) for this month. Please try again next month.'
+        }, status=400)
 
     try:
         location = Location.objects.get(id=location_id)

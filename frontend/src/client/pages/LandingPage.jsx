@@ -5,6 +5,7 @@ import { FaShieldAlt, FaClock, FaHeadset } from 'react-icons/fa';
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Button from "../components/Button";
+
 import HowItWorks from "../components/HowItWorks";
 import FeatureCard from "../components/FeatureCard";
 import Newsletter from "../components/Newsletter";
@@ -12,7 +13,7 @@ import Newsletter from "../components/Newsletter";
 // styles
 import '../styles/LandingPage.css'; 
 // images
-import heroImage from '../../assets/images/Carte_Abbonement.jpg'; // Adjust the path as necessary
+import heroImage from '../../assets/images/Carte_Abbonement.jpg'; 
 
 
 import { useTranslation } from 'react-i18next';
@@ -44,7 +45,7 @@ const LandingPage = () => {
             </section>
 
             {/* How it works section */}
-            <div className="Section-1">
+            <div className="SectionHowItWorks">
                 <HowItWorks />
             </div>
 
