@@ -1,6 +1,6 @@
 # missions/models.py
 from django.db import models
-from users.models import User  # Link to User model (agent)
+from users.models import CustomUser  # Link to User model (agent)
 
 class Mission(models.Model):
     STATUS_CHOICES = [
@@ -10,7 +10,7 @@ class Mission(models.Model):
     ]
     
     reservations = models.ManyToManyField('reservation.Reservation', related_name='missions')  # Link multiple reservations to one mission
-    agent = models.ForeignKey(User, on_delete=models.CASCADE, related_name='assigned_missions')  # Link mission to agent
+    agent = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='assigned_missions')  # Link mission to agent
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='Pending')
     feedback = models.TextField(blank=True, null=True)  # Agent feedback
     mission_date = models.DateTimeField()  # Date and time of the mission

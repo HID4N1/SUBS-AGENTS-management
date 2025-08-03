@@ -1,6 +1,6 @@
 # notifications/models.py
 from django.db import models
-from users.models import User  # Link to User model (client or agent)
+from users.models import CustomUser # Link to User model 
 
 class Notification(models.Model):
     STATUS_CHOICES = [
@@ -8,7 +8,7 @@ class Notification(models.Model):
         ('Failed', 'Failed'),
     ]
     
-    user = models.ForeignKey(User, on_delete=models.CASCADE)  # Link to user (client or agent)
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)  # Link to user 
     message = models.TextField()  # The content of the notification
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='Sent')
     sent_at = models.DateTimeField(auto_now_add=True)  # When the notification was sent

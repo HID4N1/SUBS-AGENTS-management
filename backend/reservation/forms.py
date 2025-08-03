@@ -7,7 +7,7 @@ from .models import TimeSlot, Location
 class PersonalInformationForm(forms.Form):
     client_name = forms.CharField(max_length=100, label="Name")
     client_phone = forms.CharField(max_length=15, label="Phone")
-    client_email = forms.EmailField(required=False, label="Email")  # Optional
+    client_email = forms.EmailField(required=False, label="Email")  
 
 # step 2: Define the form for Time slot
 class TimeSlotSelectionForm(forms.Form):

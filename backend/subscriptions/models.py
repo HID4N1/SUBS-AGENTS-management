@@ -1,6 +1,6 @@
 # subscription/models.py
 from django.db import models
-from users.models import User  
+from users.models import CustomUser  
 from django.utils import timezone
 
 class Subscription(models.Model):
@@ -16,7 +16,7 @@ class Subscription(models.Model):
         ('Cancelled', 'Cancelled'),
     ]
     
-    client = models.ForeignKey(User, on_delete=models.CASCADE, related_name='subscriptions')  # Link to client (user)
+    client = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='subscriptions')  # Link to client (user)
     subscription_type = models.CharField(max_length=20, choices=SUBSCRIPTION_CHOICES, default='Regular')  # Type of subscription
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='Active')  # Subscription status
     start_date = models.DateTimeField()  # When the subscription starts

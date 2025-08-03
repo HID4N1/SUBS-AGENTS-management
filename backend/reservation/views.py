@@ -1,5 +1,5 @@
-# reservation/api_views.py
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes, authentication_classes
+from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework import status
 from .models import Reservation, TimeSlot, Location
@@ -39,7 +39,11 @@ def check_reservation_limit(client_phone, client_email):
     # Return True if client can make another reservation (less than 2)
     return reservations_this_month < 2
 
+
+# api views for Multi Step Fomrs
 @api_view(['POST'])
+@permission_classes([AllowAny])
+@authentication_classes([])
 def step1(request):
     # Save client personal information
     client_name = request.data.get('client_name')
@@ -54,6 +58,8 @@ def step1(request):
     return JsonResponse({'message': 'Step 1 completed'}, status=status.HTTP_200_OK)
 
 @api_view(['POST'])
+@permission_classes([AllowAny])
+@authentication_classes([])
 def step2(request):
     
     time_slots = request.data.get('time_slots')  # time_slots should be a list of time slot IDs
@@ -62,6 +68,8 @@ def step2(request):
     return JsonResponse({'message': 'Step 2 completed'}, status=status.HTTP_200_OK)
 
 @api_view(['POST'])
+@permission_classes([AllowAny])
+@authentication_classes([])
 def step3(request):
     location = request.data.get('location')  # location id
     request.session['location'] = location
@@ -69,6 +77,8 @@ def step3(request):
     return JsonResponse({'message': 'Step 3 completed'}, status=status.HTTP_200_OK)
 
 @api_view(['POST'])
+@permission_classes([AllowAny])
+@authentication_classes([])
 def final_step(request):
     # Retrieve data from POST body and create Reservation object
     client_name = request.data.get('client_name')
@@ -104,7 +114,11 @@ def final_step(request):
 
     return JsonResponse({'message': 'Reservation created', 'reservation_id': reservation.id}, status=status.HTTP_201_CREATED)
 
+
+# functions diyal fetchinf the data for the frontend 
 @api_view(['GET'])
+@permission_classes([AllowAny])
+@authentication_classes([])
 def get_time_slots(request):
     date_str = request.GET.get('date', None)
     time_slots = TimeSlot.objects.filter(is_available=True)
@@ -125,6 +139,8 @@ def get_time_slots(request):
     return JsonResponse(data, safe=False)
 
 @api_view(['GET'])
+@permission_classes([AllowAny])
+@authentication_classes([])
 def get_locations(request):
     locations = Location.objects.all()
     data = [
@@ -140,7 +156,10 @@ def get_locations(request):
     ]
     return JsonResponse(data, safe=False)
 
+#fetch reservation details by reservation_id
 @api_view(['GET'])
+@permission_classes([AllowAny])
+@authentication_classes([])
 def get_reservation(request, reservation_id):
     try:
         reservation = Reservation.objects.get(id=reservation_id)
