@@ -2,32 +2,32 @@ import './App.css';
 import React, { Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
+// Authentication context
+import { AuthProvider } from './auth/context/AuthContext';
 
-//Client Pages 
-import LandingPage from './client/pages/LandingPage';
-import MultiStepForm from './client/pages/MultiStepForms';
-import Confirmation from './client/pages/Confirmation';
+// Client Routes
+import ClientRoutes from './routes/ClientRoutes';
 
-
-
-// external libraries
-// import axios from 'axios';
-
+// Admin Routes - Main routing configuration
+import AdminRoutesComponent from './routes/AdminRoutes';
 
 function App() {
-return (  
-  <Router>
-    <Suspense fallback={<div>Loading...</div>}>
-      <div className="App">
-        <Routes>
-          <Route path="/" element={<LandingPage />} />
-          <Route path="/form/Forms" element={<MultiStepForm />} />
-          <Route path="/form/confirmation" element={<Confirmation />} />
-        </Routes>
-      </div>
-    </Suspense>
-  </Router>
-    
+  return (  
+    <Router>
+      <AuthProvider>
+        <Suspense fallback={<div>Loading...</div>}>
+          <div className="App">
+            <Routes>
+              {/* Main Admin Routes Configuration */}
+              <Route path="/admin/*" element={<AdminRoutesComponent />} />
+              
+              {/* Main ClienClient Routes */}
+              <Route path="/*" element={<ClientRoutes />} />
+            </Routes>
+          </div>
+        </Suspense>
+      </AuthProvider>
+    </Router>
   );
 }
 

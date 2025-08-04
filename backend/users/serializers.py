@@ -52,3 +52,46 @@ class MissionSerializer(serializers.Serializer):
     def update(self, instance, validated_data):
         # TODO: implement logic once Mission model exists
         pass
+
+
+# New serializer for user registration
+class RegisterSerializer(serializers.ModelSerializer):
+    password = serializers.CharField(write_only=True, required=True)
+
+    class Meta:
+        model = CustomUser
+        fields = ['username', 'password', 'email', 'first_name', 'last_name', 'phone', 'role']
+
+    def create(self, validated_data):
+        user = CustomUser(
+            username=validated_data['username'],
+            email=validated_data.get('email', ''),
+            first_name=validated_data.get('first_name', ''),
+            last_name=validated_data.get('last_name', ''),
+            phone=validated_data.get('phone', ''),
+            role=validated_data.get('role', 'Client'),
+            is_active=True  # Ensure user is active
+        )
+        user.set_password(validated_data['password'])
+        user.save()
+        return user
+
+class LoginSerializer(serializers.Serializer):
+    username = serializers.CharField()
+    password = serializers.CharField(write_only=True)
+
+    def validate(self, attrs):
+        username = attrs.get('username')
+        password = attrs.get('password')
+
+        if not username or not password:
+            raise serializers.ValidationError("Username and password are required.")
+
+        user = CustomUser.objects.filter(username=username).first()
+        if user is None or not user.check_password(password):
+            raise serializers.ValidationError("Invalid credentials.")
+
+        return {
+            'user': user,
+            'token': user.auth_token.key  # Assuming you have a token field
+        }

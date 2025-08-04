@@ -19,9 +19,9 @@ def validate_phone(value):
 
 
 class CustomUser(AbstractUser):
-    CLIENT = 'Client'
-    AGENT = 'Agent'
-    ADMIN = 'Admin'
+    CLIENT = 'client'
+    AGENT = 'agent'
+    ADMIN = 'admin'
 
     ROLE_CHOICES = [
         ('Client', 'Client'),
@@ -31,5 +31,6 @@ class CustomUser(AbstractUser):
     phone = models.CharField(max_length=15, unique=True, validators=[validate_phone], null=True, blank=True)  # Phone number with validation
     role = models.CharField(max_length=10, choices=ROLE_CHOICES, default='Client')  # Role (Client, Agent, Admin)
     
+
     def __str__(self):
         return f"{self.first_name} {self.last_name} ({self.role})"
