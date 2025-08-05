@@ -35,5 +35,14 @@ def register_user(request):
             return Response(CustomUserSerializer(user).data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def get_user(request):
+    if request.method == 'GET':
+        user = request.user
+        serializer = CustomUserSerializer(user)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 
+    serializer = CustomUserSerializer(request.user)
+    return Response(serializer.data, status=status.HTTP_200_OK)

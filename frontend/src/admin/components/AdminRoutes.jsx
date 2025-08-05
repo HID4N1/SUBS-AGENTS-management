@@ -1,6 +1,8 @@
-import React from 'react';
-import { Navigate, Outlet } from 'react-router-dom';
-import { useAuth } from '../../auth/context/AuthContext';
+import React from "react";
+import { Navigate, Outlet } from "react-router-dom";
+import { useAuth } from "../../auth/context/AuthContext";
+import Sidebar from "./sidebar";   
+import "../styles/AdminLayout.css"; // Import your styles     
 
 const AdminRoutes = () => {
   const { isAuthenticated, isAdmin, loading } = useAuth();
@@ -21,12 +23,19 @@ const AdminRoutes = () => {
   }
 
   if (!isAdmin()) {
-    // Logged in but not admin, redirect to home with message
+    // Logged in but not admin, redirect to home
     return <Navigate to="/" replace />;
   }
 
-  // If authenticated and admin, render the nested routes
-  return <Outlet />;
+  // If authenticated and admin, render sidebar + nested routes
+  return (
+    <div className="admin-layout">
+      <Sidebar />
+      <main className="admin-content">
+        <Outlet /> 
+      </main>
+    </div>
+  );
 };
 
 export default AdminRoutes;

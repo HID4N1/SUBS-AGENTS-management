@@ -1,4 +1,3 @@
-# reservation/models.py
 from django.db import models
 from users.models import CustomUser  # Link to User model (client)
 
@@ -49,7 +48,6 @@ class Reservation(models.Model):
     time_slots = models.ManyToManyField('TimeSlot') 
     location = models.ForeignKey('Location', on_delete=models.CASCADE)  # Link to the selected meeting point
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='Pending')  # Reservation status
-    subscription_type = models.CharField(max_length=20, choices=SUBSCRIPTION_CHOICES, default='Regular')  #
     reservation_date = models.DateTimeField(auto_now_add=True)  
 
     def __str__(self):

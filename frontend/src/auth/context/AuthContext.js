@@ -1,46 +1,46 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
 import { jwtDecode } from 'jwt-decode';
-import API from '../../services/api';
+import API from '../../services/api';  // your axios instance
 
-// Create the context
 const AuthContext = createContext();
+export const useAuth = () => useContext(AuthContext);
 
-// Custom hook to use the auth context
-export const useAuth = () => {
-  return useContext(AuthContext);
-};
-
-// Auth provider component
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(null);         // full user info
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [loading, setLoading] = useState(true);
 
-  // Check if user is authenticated on initial load
   useEffect(() => {
     checkAuthStatus();
   }, []);
 
-  const checkAuthStatus = () => {
+  const checkAuthStatus = async () => {
     const accessToken = localStorage.getItem('accessToken');
-    
+
     if (accessToken) {
       try {
         const decoded = jwtDecode(accessToken);
         const currentTime = Date.now() / 1000;
-        
-        // Check if token is expired
+
         if (decoded.exp > currentTime) {
-          const userRole = decoded.role || decoded.user_role || 'User';
-          const username = decoded.username || decoded.sub || 'User';
-          
+          // Initially set user from token
           setUser({
-            username: username,
-            role: userRole
+            username: decoded.username || decoded.sub || 'User',
+            role: decoded.role || decoded.user_role || 'User',
           });
           setIsAuthenticated(true);
+
+          // --- Fetch full user profile from API ---
+          try {
+            const response = await API.get('users/auth/me/', {
+              headers: { Authorization: `Bearer ${accessToken}` },
+            });
+            setUser(response.data);  // override with full user info
+          } catch (error) {
+            console.error('Failed to fetch full user info:', error);
+          }
         } else {
-          // Token expired, remove it
+          // Token expired
           localStorage.removeItem('accessToken');
           localStorage.removeItem('refreshToken');
         }
@@ -50,25 +50,35 @@ export const AuthProvider = ({ children }) => {
         localStorage.removeItem('refreshToken');
       }
     }
-    
+
     setLoading(false);
   };
 
-  const login = (accessToken, refreshToken) => {
+  const login = async (accessToken, refreshToken) => {
     try {
       const decoded = jwtDecode(accessToken);
-      
+
       // Store tokens
       localStorage.setItem('accessToken', accessToken);
       localStorage.setItem('refreshToken', refreshToken);
-      
-      // Set user data
+
+      // Set user basic info from token
       setUser({
         username: decoded.username,
-        role: decoded.role
+        role: decoded.role,
       });
       setIsAuthenticated(true);
-      
+
+      // Fetch full user info after login
+      try {
+        const response = await API.get('/auth/me/', {
+          headers: { Authorization: `Bearer ${accessToken}` },
+        });
+        setUser(response.data);
+      } catch (error) {
+        console.error('Failed to fetch user after login:', error);
+      }
+
       return true;
     } catch (error) {
       console.error('Error during login:', error);
@@ -77,18 +87,13 @@ export const AuthProvider = ({ children }) => {
   };
 
   const logout = () => {
-    // Remove tokens
     localStorage.removeItem('accessToken');
     localStorage.removeItem('refreshToken');
-    
-    // Reset user state
     setUser(null);
     setIsAuthenticated(false);
   };
 
-  const isAdmin = () => {
-    return user && user.role === 'Admin';
-  };
+  const isAdmin = () => user && user.role === 'Admin';
 
   const value = {
     user,
@@ -97,7 +102,7 @@ export const AuthProvider = ({ children }) => {
     login,
     logout,
     isAdmin,
-    checkAuthStatus
+    checkAuthStatus,
   };
 
   return (

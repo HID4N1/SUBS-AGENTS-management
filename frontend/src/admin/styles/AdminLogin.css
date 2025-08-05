@@ -53,6 +53,7 @@
     border-radius: 8px;
     font-size: 16px;
     transition: border-color 0.3s ease;
+    color: var(--text-color);
   }
   
   .form-group input:focus {
@@ -91,7 +92,6 @@
   
   .login-image-section {
     width: 50%;
-    /* left side shadow */
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   }
   

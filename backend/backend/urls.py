@@ -21,8 +21,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     #Custopm app urls
     path('api/users/', include('users.urls')),
-    path('api/subscriptions/', include('subscriptions.urls')),
     path('api/reservation/', include('reservation.urls')),
     path('api/missions/', include('missions.urls')),
     path('api/notifications/', include('notifications.urls')),
+    path('api/admin_panel/', include('admin_panel.urls')),
 ]
