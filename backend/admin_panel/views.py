@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import date, timedelta
 from django.db.models import Count
 from django.shortcuts import get_object_or_404
 
@@ -23,6 +23,27 @@ class AdminDashboardStats(APIView):
         confirmed_reservations = Reservation.objects.filter(status='Confirmed').count()
         cancelled_reservations = Reservation.objects.filter(status='Cancelled').count()
         today_reservations = Reservation.objects.filter(reservation_date__date=today).count()
+
+        # Get reservation trend data for last 30 days
+        last_30_days = today - timedelta(days=30)
+        reservations_by_date = (
+            Reservation.objects.filter(
+                reservation_date__date__gte=last_30_days,
+                reservation_date__date__lte=today
+            )
+            .values('reservation_date__date')
+            .annotate(count=Count('id'))
+            .order_by('reservation_date__date')
+        )
+        
+        # Format the trend data
+        trend_data = [
+            {
+                "date": item['reservation_date__date'].strftime('%Y-%m-%d'),
+                "count": item['count']
+            }
+            for item in reservations_by_date
+        ]
 
         # --- Missions ---
         total_missions = Mission.objects.count()
@@ -53,7 +74,8 @@ class AdminDashboardStats(APIView):
                 "pending": pending_reservations,
                 "confirmed": confirmed_reservations,
                 "cancelled": cancelled_reservations,
-                "today": today_reservations
+                "today": today_reservations,
+                "by_date": trend_data  # Add the trend data
             },
             "missions": {
                 "total": total_missions,
@@ -211,13 +233,17 @@ class ReservationsList(APIView):
             "id", "client_name", "status", "reservation_date",
             "location__name"
         )
+
+        # Formatting reservation_date to 'YYYY-MM-DD'
         return Response([
             {
                 "id": r["id"],
                 "client_name": r["client_name"],
                 "status": r["status"],
-                "reservation_date": r["reservation_date"],
+                "reservation_date": r["reservation_date"].strftime('%Y-%m-%d'),  # Ensure correct format
                 "location": r["location__name"],
             } for r in data
         ])
+
+# https://chatgpt.com/share/6892c785-2668-8006-9988-b2c4eddf55ee
 

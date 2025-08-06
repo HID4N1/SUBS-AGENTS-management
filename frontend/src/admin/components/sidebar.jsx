@@ -17,15 +17,8 @@ const Sidebar = () => {
 
   return (
     <>
-      <button className="sidebar-toggle" onClick={toggleSidebar}>
-        ☰
-      </button>
 
       <aside className={`sidebar ${isOpen ? "open" : "collapsed"}`}>
-        <div className="sidebar-header">
-          <h2 className="sidebar-logo">Admin Panel</h2>
-        </div>
-
         {/* --- Authenticated User Info --- */}
         <div className="sidebar-user">
           <div className="sidebar-user-avatar">

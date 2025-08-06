@@ -1,16 +1,46 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import { fetchDashboardStats } from "../../services/adminApi";
-
+import { FaCalendarCheck, FaRocket, FaUsers, FaEye } from "react-icons/fa";
+import { Spinner } from "react-bootstrap";  // Add a spinner for loading state
 import Card from "../components/Dashboard/card";
-// import AgentActivityChart from "../../components/Dashboard/AgentActivityChart";
-// import MissionTrendChart from "..components/Dashboard/MissionTrendChart";
+import ReservationsTrendChart from "../components/Dashboard/ReservationsTrendChart";
 import ReservationNumberChart from "../components/Dashboard/ReservationNumberChart";
-// import RecentMissions from "../../components/Dashboard/RecentMissions";
+import RecentMissions from "../components/Dashboard/RecentMissions";
 import "../styles/AdminDashboard.css";
 
 const AdminDashboard = () => {
   const [stats, setStats] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  
+
+
+  const totalvisitors = 1000; // Mock total visitors data
+
+  // Transform data for ReservationsTrendChart
+  const trendData = useMemo(() => {
+    if (!stats?.reservations?.by_date) return [];
+    
+    // The data is already in correct format from backend
+    return stats.reservations.by_date.map(item => ({
+      date: item.date,
+      count: item.count
+    }));
+  }, [stats]);
+
+  // // mission lists
+  // const missions = useMemo(() => {
+  //   return stats?.missions?.recent || [];
+  // }, [stats]);
+  const dummymissions = [
+      { id: 1, name: "Mission Alpha", reservationsNumber: '10', status: "Completed", date: "2023-10-01" },
+      { id: 2, name: "Mission Beta", reservationsNumber: '10', status: "In Progress", date: "2023-10-02" },
+      { id: 3, name: "Mission Gamma", reservationsNumber: '10', status: "Pending", date: "2023-10-03" }
+    ];
+  
+
+  
+  
 
   useEffect(() => {
     fetchDashboardStats()
@@ -20,12 +50,14 @@ const AdminDashboard = () => {
       })
       .catch((err) => {
         console.error("Failed to fetch dashboard stats:", err);
+        setError("Failed to load data. Please try again later.");
         setLoading(false);
       });
   }, []);
 
-  if (loading) return <div>Loading dashboard...</div>;
-  if (!stats) return <div>No data available</div>;
+
+  if (loading) return <div className="loading-state"><Spinner animation="border" variant="primary" /></div>;
+  if (error) return <div className="error-state">{error}</div>;
 
   return (
     <div className="dashboard">
@@ -33,32 +65,21 @@ const AdminDashboard = () => {
 
       {/* KPI Cards */}
       <div className="cards-container">
-        <Card title="Total Reservations" value={stats.reservations.total} />
-        <Card title="Total Missions" value={stats.missions.total} />
-        <Card title="Total Agents" value={stats.agents.total} />
+        <Card title="Total Reservations" value={stats.reservations.total} icon={FaCalendarCheck} />
+        <Card title="Total Missions" value={stats.missions.total} icon={FaRocket} />
+        <Card title="Total Agents" value={stats.agents.total} icon={FaUsers} />
+        <Card title="Total Visitors" value={totalvisitors} icon={FaEye} />
       </div>
 
       {/* Charts */}
       <div className="charts-container">
-        {/* <AgentActivityChart activeAgents={stats.agents.active_today} /> */}
-        {/* <MissionTrendChart missions={stats.missions} /> */}
+        <ReservationsTrendChart data={trendData} />
         <ReservationNumberChart reservations={stats.reservations} />
       </div>
 
-      {/* Location Summary */}
-      <div className="locations-summary">
-        <h2>Reservations by Location</h2>
-        <ul>
-          {stats.locations_summary.map((loc, index) => (
-            <li key={index}>
-              {loc.location}: {loc.reservations}
-            </li>
-          ))}
-        </ul>
-      </div>
-
       {/* Recent Missions */}
-      {/* <RecentMissions /> */}
+      {/* <RecentMissions missions={missions} /> */}
+      <RecentMissions missions={dummymissions} />
     </div>
   );
 };

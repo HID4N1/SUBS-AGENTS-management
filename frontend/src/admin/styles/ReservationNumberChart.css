@@ -5,9 +5,31 @@
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
   }
   
-  .reservation-chart-container h3 {
+  .reservation-chart-container h2 {
     margin-bottom: 20px;
     font-size: 18px;
     font-weight: bold;
+    color: #333;
   }
   
+  .reservation-chart {
+    width: 100%;
+    height: 400px;
+  }
+  .reservation-chart .apexcharts-canvas {
+    background: #f9f9f9;
+  }
+  .reservation-chart .apexcharts-tooltip {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  .reservation-chart .apexcharts-tooltip .apexcharts-tooltip-text {
+    color: #333;
+  }
+  .reservation-chart .apexcharts-tooltip .apexcharts-tooltip-title {
+    font-weight: bold;
+    margin-bottom: 5px;
+  }

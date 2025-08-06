@@ -38,3 +38,10 @@ export const fetchReservations = async (filters = {}) => {
   const response = await axios.get(`${API_BASE_URL}/reservations/?${params.toString()}`);
   return response.data;
 };
+
+// Locations
+// export const Locations = async (filters = {}) => {
+//   const params = new URLSearchParams(filters);
+//   const response = await axios.get(`${API_BASE_URL}/locations/?${params.toString()}`);
+//   return response.data;
+// }
