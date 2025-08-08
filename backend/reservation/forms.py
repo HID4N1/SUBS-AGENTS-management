@@ -1,5 +1,5 @@
 from django import forms
-from .models import TimeSlot, Location
+from .models import TimeSlot, Location, MeetingPoint
 
 
 
@@ -13,6 +13,9 @@ class PersonalInformationForm(forms.Form):
 class TimeSlotSelectionForm(forms.Form):
     time_slots = forms.ModelMultipleChoiceField(queryset=TimeSlot.objects.filter(is_available=True), widget=forms.CheckboxSelectMultiple)
 
-# step 3: Define the form for Location
+# step 3: Define the form for Location and Meeting Point selection
 class LocationSelectionForm(forms.Form):
     location = forms.ModelChoiceField(queryset=Location.objects.all())
+class MeetingPointSelectionForm(forms.Form):
+    meeting_point = forms.ModelChoiceField(queryset=Location.objects.none(), required=False)  # Initially empty, will be populated dynamically
+

@@ -5,6 +5,7 @@ from django.shortcuts import get_object_or_404
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
+from rest_framework.request import Request
 
 from users.permissions import IsAdmin
 from users.models import CustomUser
@@ -75,7 +76,7 @@ class AdminDashboardStats(APIView):
                 "confirmed": confirmed_reservations,
                 "cancelled": cancelled_reservations,
                 "today": today_reservations,
-                "by_date": trend_data  # Add the trend data
+                "by_date": trend_data  
             },
             "missions": {
                 "total": total_missions,
@@ -91,7 +92,7 @@ class AdminDashboardStats(APIView):
             "locations_summary": locations_data
         })
 
-
+# Agent Page
 class AgentsList(APIView):
     permission_classes = [IsAuthenticated, IsAdmin]
 
@@ -150,6 +151,7 @@ class AgentDetail(APIView):
         }
         return Response(data)
 
+# Missions Page
 class MissionsList(APIView):
     permission_classes = [IsAuthenticated, IsAdmin]
 
@@ -206,6 +208,7 @@ class MissionDetail(APIView):
         }
         return Response(data)
 
+# Reservations Page
 class ReservationsList(APIView):
     permission_classes = [IsAuthenticated, IsAdmin]
 
@@ -245,5 +248,7 @@ class ReservationsList(APIView):
             } for r in data
         ])
 
-# https://chatgpt.com/share/6892c785-2668-8006-9988-b2c4eddf55ee
+
+# CRUD Agents
+# CRUD Locations
 

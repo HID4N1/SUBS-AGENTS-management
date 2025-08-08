@@ -1,0 +1,85 @@
+.meeting-point-card {
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    padding: 1rem 1.5rem;
+    margin-bottom: 1.5rem;
+    transition: box-shadow 0.3s ease;
+    }
+    
+    .meeting-point-card:hover {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    }
+    
+    .meeting-point-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    }
+    
+    .meeting-point-title {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 600;
+    font-size: 1.25rem;
+    color: #1e293b;
+    }
+    
+    .meeting-point-actions {
+    display: flex;
+    gap: 0.5rem;
+    }
+    
+    .action-btn {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0.25rem;
+    border-radius: 6px;
+    transition: background-color 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    }
+    
+    .action-btn:hover {
+    background-color: #e0e7ff;
+    }
+    
+    .edit-btn {
+    color: #3b82f6;
+    }
+    
+    .edit-btn:hover {
+    color: #2563eb;
+    }
+    
+    .delete-btn {
+    color: #ef4444;
+    }
+    
+    .delete-btn:hover {
+    color: #b91c1c;
+    }
+    
+    .meeting-point-content {
+    font-size: 0.95rem;
+    color: #374151;
+    line-height: 1.4;
+    }
+    
+    .meeting-point-address,
+    .meeting-point-description,
+    .meeting-point-coordinates {
+    margin-bottom: 0.5rem;
+    }
+    
+    .meeting-point-address strong,
+    .meeting-point-description strong,
+    .meeting-point-coordinates strong {
+    color: #1e293b;
+    }
+    

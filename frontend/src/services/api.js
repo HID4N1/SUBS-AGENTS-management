@@ -16,6 +16,10 @@ export const fetchLocations = () => {
   return API.get('reservation/locations/');
 };
 
+export const fetchMeetingPoints = (locationId) => {
+  return API.get(`reservation/meeting_points/${locationId}/`);
+}
+
 export const fetchReservationById = (reservationId) => {
   return API.get(`reservation/${reservationId}/`);
 };

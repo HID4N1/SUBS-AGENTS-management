@@ -47,7 +47,14 @@ const Sidebar = () => {
           <NavLink to="/admin/reservations" className={({ isActive }) => (isActive ? "active-link" : "")}>
             Reservations
           </NavLink>
-          <NavLink to="/admin/locations" className={({ isActive }) => (isActive ? "active-link" : "")}>
+          <NavLink 
+            to="/admin/locationsPage" 
+            className={({ isActive }) => {
+              // Check if current path starts with /admin/locations
+              const isLocationsActive = window.location.pathname.startsWith('/admin/locations');
+              return isActive || isLocationsActive ? "active-link" : "";
+            }}
+          >
             Locations
           </NavLink>
         </nav>

@@ -9,15 +9,27 @@ class TimeSlot(models.Model):
     def __str__(self):
         return f"{self.start_time} - {self.end_time}"
 
-class Location(models.Model):
+class MeetingPoint(models.Model):
     name = models.CharField(max_length=100)
     address = models.CharField(max_length=255)
-    latitude = models.FloatField()  # Latitude for the location
-    longitude = models.FloatField()  # Longitude for the location
+    latitude = models.FloatField()  # Latitude for the meeting point
+    longitude = models.FloatField()  # Longitude for the meeting point
     description = models.TextField(blank=True, null=True)  
 
     def __str__(self):
         return f"{self.name} - {self.address}"
+
+class Location(models.Model):
+    name = models.CharField(max_length=100)
+    address = models.CharField(max_length=255)
+    description = models.TextField(blank=True, null=True)  
+    meeting_point = models.ManyToManyField(MeetingPoint, blank=True)  # Link to MeetingPoint model
+
+    def __str__(self):
+        return f"{self.name} - {self.address}"
+
+
+
 
 class AgentLocation(models.Model):
     agent = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='assigned_locations') 
@@ -36,17 +48,13 @@ class Reservation(models.Model):
         ('Confirmed', 'Confirmed'),
         ('Cancelled', 'Cancelled'),
     ]
-    SUBSCRIPTION_CHOICES = [    
-        ('Regular', 'Regular'),
-        ('Student', 'Student'),
-   
-    ]
     
     client_name = models.CharField(max_length=100, null=True, blank=True)  
     client_phone = models.CharField(max_length=15, null=True, blank=True)  
     client_email = models.EmailField(null=True, blank=True) 
     time_slots = models.ManyToManyField('TimeSlot') 
-    location = models.ForeignKey('Location', on_delete=models.CASCADE)  # Link to the selected meeting point
+    location = models.ForeignKey('Location', on_delete=models.CASCADE)  # Link to the selected Location
+    meeting_point = models.ForeignKey('MeetingPoint', on_delete=models.CASCADE, null=True, blank=True)  # Link to the selected MeetingPoint
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='Pending')  # Reservation status
     reservation_date = models.DateTimeField(auto_now_add=True)  
 

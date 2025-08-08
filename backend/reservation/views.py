@@ -2,7 +2,7 @@ from rest_framework.decorators import api_view, permission_classes, authenticati
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework import status
-from .models import Reservation, TimeSlot, Location
+from .models import Reservation, TimeSlot, Location, MeetingPoint
 from datetime import datetime
 from django.http import JsonResponse
 from django.db.models import Q
@@ -86,6 +86,11 @@ def final_step(request):
     client_email = request.data.get('client_email')
     time_slots = request.data.get('time_slots', [])
     location_id = request.data.get('location')
+    meeting_point_id = request.data.get('meeting_point')
+
+    # Validate required fields
+    if not meeting_point_id:
+        return JsonResponse({'error': 'Meeting point is required'}, status=400)
 
     # Check if client has exceeded reservation limit for this month
     if not check_reservation_limit(client_phone, client_email):
@@ -98,11 +103,21 @@ def final_step(request):
     except Location.DoesNotExist:
         return JsonResponse({'error': 'Invalid location ID'}, status=400)
 
+    try:
+        meeting_point = MeetingPoint.objects.get(id=meeting_point_id)
+    except MeetingPoint.DoesNotExist:
+        return JsonResponse({'error': 'Invalid meeting point ID'}, status=400)
+
+    # Verify the meeting point belongs to the selected location
+    if meeting_point not in location.meeting_point.all():
+        return JsonResponse({'error': 'Selected meeting point does not belong to the chosen location'}, status=400)
+
     reservation = Reservation.objects.create(
         client_name=client_name,
         client_phone=client_phone,
         client_email=client_email,
         location=location,
+        meeting_point=meeting_point,
         status='Pending',
         reservation_date=datetime.now()
     )
@@ -156,6 +171,37 @@ def get_locations(request):
     ]
     return JsonResponse(data, safe=False)
 
+
+#fetch MeetingPoints by location_id
+@api_view(['GET'])
+@permission_classes([AllowAny])
+@authentication_classes([])
+def get_meeting_points(request, location_id):
+    try:
+        location = Location.objects.get(id=location_id)
+    except Location.DoesNotExist:
+        return JsonResponse({'error': 'Location not found'}, status=404)
+
+    meeting_points = location.meeting_point.all()
+    data = [
+        {
+            'id': mp.id,
+            'name': mp.name,
+            'address': mp.address,
+            'latitude': mp.latitude,
+            'longitude': mp.longitude,
+            'description': mp.description,
+        }
+        for mp in meeting_points
+    ]
+    
+    return JsonResponse(data, safe=False)
+
+
+
+
+
+
 #fetch reservation details by reservation_id
 @api_view(['GET'])
 @permission_classes([AllowAny])
@@ -189,6 +235,14 @@ def get_reservation(request, reservation_id):
             'longitude': reservation.location.longitude,
             'description': reservation.location.description,
         },
+        'meeting_point': {
+            'id': reservation.meeting_point.id,
+            'name': reservation.meeting_point.name,
+            'address': reservation.meeting_point.address,
+            'latitude': reservation.meeting_point.latitude,
+            'longitude': reservation.meeting_point.longitude,
+            'description': reservation.meeting_point.description,
+        } if reservation.meeting_point else None,
         'status': reservation.status,
         'reservation_date': reservation.reservation_date,
         'time_slots': time_slots_data,

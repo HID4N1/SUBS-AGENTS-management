@@ -66,6 +66,17 @@ const Confirmation = () => {
         <p><strong>Address:</strong> {reservation.location.address}</p>
         <p><strong>Description:</strong> {reservation.location.description}</p>
 
+        <h2>Meeting Point</h2>
+        {reservation.meeting_point ? (
+          <>
+            <p><strong>Name:</strong> {reservation.meeting_point.name}</p>
+            <p><strong>Address:</strong> {reservation.meeting_point.address}</p>
+            <p><strong>Description:</strong> {reservation.meeting_point.description}</p>
+          </>
+        ) : (
+          <p>No meeting point selected.</p>
+        )}
+
         <h2>Time Slots</h2>
         <ul>
           {reservation.time_slots.map((slot) => (
